@@ -4,28 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 
-namespace ayrbox.winservice.Logging
-{
-    public class WindowsEventLogger: ILogger
-    {
-        private readonly string _sourceName;
+namespace ayrbox.winservice.Logging {
+    public class WindowsEventLogger : ILogger {
         private readonly string _logName;
         private readonly string _machineName;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="applicationName">Name of the Service Application (i.e. Main folder)</param>
-        /// <param name="serviceName">Name of internal service (ie Log Name)</param>
-        public WindowsEventLogger(string applicationName, string serviceName) {
+
+        public WindowsEventLogger(string applicationName) {
             _machineName = Environment.MachineName;
-            _logName = applicationName;         //Log area with multiple service source Main Folder
-            _sourceName = serviceName;
-            
-            if (!EventLog.SourceExists(_sourceName, _machineName))
-            {
-                EventLog.CreateEventSource(_sourceName, _logName, _machineName);
-            }            
+            _logName = applicationName;
         }
 
         public void Delete(Log log) {
@@ -33,35 +20,35 @@ namespace ayrbox.winservice.Logging
         }
 
         public void ClearLog() {
-            EventLog.DeleteEventSource(_sourceName, _machineName);
             EventLog.Delete(_logName);
         }
 
-        public void InsertLog(LogLevel logLevel, string message, string fullMessage = "", string reference = null) {
+        public void InsertLog(Log log) {
 
-            EventInstance eventInstance = new EventInstance(0, 0, ParseLogLevel(logLevel));
+            CreateLogIfNotExists(log.Source);
+
+            EventInstance eventInstance = new EventInstance(0, 0, ParseLogLevel(log.LogLevel));
 
             var eventData = new Dictionary<string, string>() {
-                {"Message", message},
-                {"Detail", fullMessage},
-                {"Reference", reference}
+                {"Message", log.Message},
+                {"Detail", log.FullMessage},
+                {"Reference", log.Reference}
             };
 
-            EventLog.WriteEvent(_sourceName, 
-                eventInstance, 
+            EventLog.WriteEvent(log.Source,
+                eventInstance,
                 eventData
                     .Where(d => !string.IsNullOrWhiteSpace(d.Value))
-                    .Select(d => string.Format("{0}: {1}",d.Key, d.Value))
+                    .Select(d => string.Format("{0}: {1}", d.Key, d.Value))
                     .ToArray());
         }
 
-        private EventLogEntryType ParseLogLevel(LogLevel logLevel) {            
-            switch (logLevel)
-            {
+        private EventLogEntryType ParseLogLevel(LogLevel logLevel) {
+            switch (logLevel) {
                 case LogLevel.Error:
                 case LogLevel.Fatal:
                     return EventLogEntryType.Error;
-                
+
                 case LogLevel.Warning:
                     return EventLogEntryType.Warning;
 
@@ -69,6 +56,12 @@ namespace ayrbox.winservice.Logging
                 case LogLevel.Debug:
                 default:
                     return EventLogEntryType.Information;
+            }
+        }
+
+        private void CreateLogIfNotExists(string sourceName) {
+            if (!EventLog.SourceExists(sourceName, _machineName)) {
+                EventLog.CreateEventSource(sourceName, _logName, _machineName);
             }
         }
     }

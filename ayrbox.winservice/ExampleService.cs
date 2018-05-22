@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Linq;
-using System.ServiceProcess;
 using System.Text;
+using System.Configuration;
+using ayrbox.winservice.Logging;
+using System.Timers;
 
-namespace ayrbox.winservice
-{
-    public partial class ExampleService : ServiceBase
-    {
-        public ExampleService()
-        {
-            InitializeComponent();
+namespace ayrbox.winservice {
+    public class ExampleService : BaseService {
+        public ExampleService(ILogger logger)
+            : base("ExampleService", logger) {
         }
 
-        protected override void OnStart(string[] args)
-        {
+        protected override double Interval {
+            get {
+                return int.Parse(ConfigurationManager.AppSettings["Interval.ExampleService"]);
+            }
         }
 
-        protected override void OnStop()
-        {
+        public override void Process() {
+            _logger.Info(ServiceName, "Processing the services.");
         }
     }
 }
