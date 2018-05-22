@@ -18,13 +18,15 @@ namespace ayrbox.winservice {
 
                 logger = new ConsoleLogger();
                 (new ExampleService(logger)).Process();
+                (new ReadEmailService(logger)).Process();
                 Console.WriteLine("Press any key to continue...");                
 
             } else {
                 logger = new WindowsEventLogger("ayrbox.winservice");
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[]  { 
-                    new ExampleService(logger) 
+                    new ExampleService(logger),
+                    new ReadEmailService(logger)
                 };
                 ServiceBase.Run(ServicesToRun);
             }

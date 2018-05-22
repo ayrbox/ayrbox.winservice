@@ -25,6 +25,10 @@ namespace ayrbox.winservice.Logging {
 
         public void InsertLog(Log log) {
 
+            if (log.LogLevel == LogLevel.Debug) return;     //Skip logging debug in windows event
+
+
+
             CreateLogIfNotExists(log.Source);
 
             EventInstance eventInstance = new EventInstance(0, 0, ParseLogLevel(log.LogLevel));
