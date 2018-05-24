@@ -7,8 +7,9 @@ using ayrbox.winservice.Logging;
 using System.ServiceProcess;
 using System.Timers;
 using System.ComponentModel;
+using System.Reflection;
 
-namespace ayrbox.winservice {
+namespace ayrbox.winservice.Core {
     public abstract class BaseService : ServiceBase, IComparable<BaseService> {
 
         private IContainer components = null;
@@ -20,22 +21,14 @@ namespace ayrbox.winservice {
 
         protected abstract double Interval { get; }
         protected abstract int Order { get; }
-        public abstract void Process();
-        
-        public void Process(object source, ElapsedEventArgs e) {
+        protected abstract void Process();
+
+
+        protected void Process(object source, ElapsedEventArgs e) {
             Process();
         }
 
-
-        protected BaseService(string serviceName, ILogger logger) {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = serviceName;
-            _logger = logger;
-        }
-
-
-
-        protected override void OnStart(string[] args) {
+        public virtual void Start() {
             try {
                 _logger.Info(ServiceName, "Starting...");
                 _timer = new Timer(this.Interval);
@@ -49,10 +42,31 @@ namespace ayrbox.winservice {
         }
 
 
-        protected override void OnStop() {
+        protected BaseService(string serviceName, ILogger logger) {
+            components = new System.ComponentModel.Container();
+            this.ServiceName = serviceName;
+            _logger = logger;
+        }
+
+
+
+        protected override void OnStart(string[] args) {
+            Start();
+        }
+
+
+        protected override void OnStop() {            
             _logger.Info(ServiceName, "Stopping...");
+
+            _timer.Enabled = false;
+            _timer.Stop();
+            _timer = null;
+
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+
             _logger.Info(this.ServiceName, "Stopped");
         }
 
@@ -64,9 +78,6 @@ namespace ayrbox.winservice {
             base.Dispose(disposing);
         }
 
-        
-
-
         public int CompareTo(BaseService other) {
             // If other is not a valid object reference, this instance is greater.
             if (other == null) return 1;
@@ -74,5 +85,18 @@ namespace ayrbox.winservice {
         }
 
 
+
+
+        public static IEnumerable<BaseService> GetAllServices(params object[] args) {
+
+            List<BaseService> objects = new List<BaseService>();
+            foreach (Type type in
+                Assembly.GetAssembly(typeof(BaseService)).GetTypes()
+                    .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(BaseService)))) {
+                        objects.Add((BaseService)Activator.CreateInstance(type, args));
+            }
+            objects.Sort();
+            return objects;
+        }
     }
 }

@@ -4,8 +4,6 @@ Ayrbox winservice is boilerplate template to create windows service in .net 4.0.
 
 ## External Dependency
 * Dapper
-* Autofac
-
 
 ## Features
 
@@ -18,6 +16,3 @@ Logging interface with concrete logging for Windows Event Log and file logging.
 ### Data **(Under progress)**
 Data access using Dapper.
 
-
-### Task Schedule
-Task Scheduler Implementation that can be handled using database schedule

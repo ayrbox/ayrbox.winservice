@@ -5,6 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using ayrbox.winservice.Logging;
 using ayrbox.winservice.Utils;
+using ayrbox.winservice.Core;
 
 namespace ayrbox.winservice {
     static class Program {
@@ -16,17 +17,21 @@ namespace ayrbox.winservice {
             ILogger logger;
             logger = CreateLogger();
 
-            var services = TypeFinder.FindObjectOfType<BaseService>(logger);
+            var services = BaseService.GetAllServices(logger);
             if (IsDebug()) {
 
                 logger.Debug("Main", "Running services instances.......");
 
                 foreach (var s in services) {
-                    s.Process();
+                    s.Start();
                 }
                 
-                Console.WriteLine("Press any key to continue...");
+                Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
+
+                foreach (var s in services) {
+                    s.Stop();
+                }
 
             } else {
                 ServiceBase.Run(services.ToArray());

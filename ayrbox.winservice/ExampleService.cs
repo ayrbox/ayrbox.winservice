@@ -5,6 +5,7 @@ using System.Text;
 using System.Configuration;
 using ayrbox.winservice.Logging;
 using System.Timers;
+using ayrbox.winservice.Core;
 
 namespace ayrbox.winservice {
     public class ExampleService : BaseService {
@@ -19,11 +20,11 @@ namespace ayrbox.winservice {
         }
 
         protected override int Order {
-            get { return 1000; }
+            get { return 0; }
         }
 
-        public override void Process() {
-            _logger.Info(ServiceName, "Processing the services.");
+        protected override void Process() {
+            _logger.Info(ServiceName, "Running Example Service.......");
         }
     }
 }

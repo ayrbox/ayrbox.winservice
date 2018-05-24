@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ayrbox.winservice.Logging;
+using ayrbox.winservice.Core;
 
 namespace ayrbox.winservice {
     public class ReadEmailService : BaseService {
@@ -16,12 +17,12 @@ namespace ayrbox.winservice {
 
         protected override double Interval {
             get {
-                return 360000;
+                return 1500;
             }
         }
 
 
-        public override void Process() {
+        protected override void Process() {
             _logger.Debug(ServiceName, "Processing email...");
 
 
