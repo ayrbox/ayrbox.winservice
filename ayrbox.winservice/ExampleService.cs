@@ -18,6 +18,10 @@ namespace ayrbox.winservice {
             }
         }
 
+        protected override int Order {
+            get { return 1000; }
+        }
+
         public override void Process() {
             _logger.Info(ServiceName, "Processing the services.");
         }

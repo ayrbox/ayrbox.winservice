@@ -51,7 +51,9 @@ namespace ayrbox.winservice.Logging
                 Message = message,
                 FullMessage = fullMessage,
                 Reference = reference,
-                Source = source
+                Source = source,
+                LogLevel = level,
+                CreatedOnUtd = DateTime.UtcNow
             });
         }
     }

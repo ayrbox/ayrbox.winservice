@@ -9,7 +9,7 @@ using System.Timers;
 using System.ComponentModel;
 
 namespace ayrbox.winservice {
-    public abstract class BaseService : ServiceBase {
+    public abstract class BaseService : ServiceBase, IComparable<BaseService> {
 
         private IContainer components = null;
 
@@ -19,9 +19,9 @@ namespace ayrbox.winservice {
 
 
         protected abstract double Interval { get; }
+        protected abstract int Order { get; }
         public abstract void Process();
-
-
+        
         public void Process(object source, ElapsedEventArgs e) {
             Process();
         }
@@ -63,5 +63,16 @@ namespace ayrbox.winservice {
             }
             base.Dispose(disposing);
         }
+
+        
+
+
+        public int CompareTo(BaseService other) {
+            // If other is not a valid object reference, this instance is greater.
+            if (other == null) return 1;
+            return Order.CompareTo(other.Order);
+        }
+
+
     }
 }
