@@ -7,8 +7,8 @@ using ayrbox.winservice.Core;
 
 namespace ayrbox.winservice {
     public class ReadEmailService : BaseService {
-        public ReadEmailService(ILogger logger)
-            : base("ReadEmailService", logger) {
+        public ReadEmailService(ILogger logger, IDataContext dataContext)
+            : base("ReadEmailService", logger, dataContext) {
         }
 
         protected override int Order {
@@ -17,7 +17,7 @@ namespace ayrbox.winservice {
 
         protected override double Interval {
             get {
-                return 1500;
+                return 60000;
             }
         }
 

@@ -6,6 +6,7 @@ using System.Text;
 using ayrbox.winservice.Logging;
 using ayrbox.winservice.Utils;
 using ayrbox.winservice.Core;
+using ayrbox.winservice.Data;
 
 namespace ayrbox.winservice {
     static class Program {
@@ -17,7 +18,9 @@ namespace ayrbox.winservice {
             ILogger logger;
             logger = CreateLogger();
 
-            var services = BaseService.GetAllServices(logger);
+            IDataContext dataContext = new ServiceData();
+
+            var services = BaseService.GetAllServices(logger, dataContext);
             if (IsDebug()) {
 
                 logger.Debug("Main", "Running services instances.......");

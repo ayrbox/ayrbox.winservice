@@ -15,6 +15,7 @@ namespace ayrbox.winservice.Core {
         private IContainer components = null;
 
         protected ILogger _logger;
+        protected IDataContext _dataContext;
         protected Timer _timer;
 
 
@@ -42,10 +43,13 @@ namespace ayrbox.winservice.Core {
         }
 
 
-        protected BaseService(string serviceName, ILogger logger) {
+        protected BaseService(string serviceName, 
+            ILogger logger,
+            IDataContext dataContext) {
             components = new System.ComponentModel.Container();
             this.ServiceName = serviceName;
             _logger = logger;
+            _dataContext = dataContext;
         }
 
 
