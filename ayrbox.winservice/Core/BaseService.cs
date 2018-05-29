@@ -62,14 +62,14 @@ namespace ayrbox.winservice.Core {
         protected override void OnStop() {            
             _logger.Info(ServiceName, "Stopping...");
 
-            _timer.Enabled = false;
-            _timer.Stop();
-            _timer = null;
-
+            if (_timer != null) {
+                _timer.Enabled = false;
+                _timer.Stop();
+                _timer = null;
+            }
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
-
 
             _logger.Info(this.ServiceName, "Stopped");
         }
