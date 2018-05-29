@@ -10,45 +10,12 @@ using ayrbox.winservice.Data;
 
 namespace ayrbox.winservice {
     static class Program {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+
         static void Main(string[] args) {
 
-            ILogger logger;
-            logger = CreateLogger();
+            var _serviceDataContext = new ServiceData();
+            BaseService.Run(_serviceDataContext);
 
-            IDataContext dataContext = new ServiceData();
-
-            var services = BaseService.GetAllServices(logger, dataContext);
-            if (BaseService.IsDebug()) {
-
-                logger.Debug("Main", "Running services instances.......");
-
-                foreach (var s in services) {
-                    s.Start();
-                }
-                
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey();
-
-                foreach (var s in services) {
-                    s.Stop();
-                }
-
-            } else {
-                ServiceBase.Run(services.ToArray());
-            }
-        }
-
-        
-        //Factory method for creating logger
-        private static ILogger CreateLogger() {
-            if (BaseService.IsDebug()) {
-                return new ConsoleLogger();
-            } else {
-                return new WindowsEventLogger("ayrbox.winservice");
-            }
         }
     }
 }

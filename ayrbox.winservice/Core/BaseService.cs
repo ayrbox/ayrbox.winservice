@@ -53,7 +53,6 @@ namespace ayrbox.winservice.Core {
         }
 
 
-
         protected override void OnStart(string[] args) {
             Start();
         }
@@ -90,7 +89,6 @@ namespace ayrbox.winservice.Core {
 
 
 
-
         public static IEnumerable<BaseService> GetAllServices(params object[] args) {
 
             List<BaseService> objects = new List<BaseService>();
@@ -106,6 +104,44 @@ namespace ayrbox.winservice.Core {
         public static bool IsDebug() {
             var args = Environment.GetCommandLineArgs();
             return args.Select(s => s.ToLower()).Contains("debug");
+        }
+
+
+        public static void Run(ILogger logger, IDataContext dataContext) {
+            var services = BaseService.GetAllServices(logger, dataContext);
+            if (BaseService.IsDebug()) {
+
+                logger.Debug("Main", "Running services instances.......");
+
+                foreach (var s in services) {
+                    s.Start();
+                }
+
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+
+                foreach (var s in services) {
+                    s.Stop();
+                }
+
+            } else {
+                ServiceBase.Run(services.ToArray());
+            }
+        }
+
+        public static void Run(IDataContext dataContext) {
+            var logger = CreateLogger();            
+            Run(logger, dataContext);
+        }
+
+
+        //Factory method for creating logger
+        public static ILogger CreateLogger() {
+            if (BaseService.IsDebug()) {
+                return new ConsoleLogger();
+            } else {
+                return new WindowsEventLogger("ayrbox.winservice");
+            }
         }
     }
 }
