@@ -102,5 +102,10 @@ namespace ayrbox.winservice.Core {
             objects.Sort();
             return objects;
         }
+
+        public static bool IsDebug() {
+            var args = Environment.GetCommandLineArgs();
+            return args.Select(s => s.ToLower()).Contains("debug");
+        }
     }
 }

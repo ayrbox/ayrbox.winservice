@@ -21,7 +21,7 @@ namespace ayrbox.winservice {
             IDataContext dataContext = new ServiceData();
 
             var services = BaseService.GetAllServices(logger, dataContext);
-            if (IsDebug()) {
+            if (BaseService.IsDebug()) {
 
                 logger.Debug("Main", "Running services instances.......");
 
@@ -41,15 +41,10 @@ namespace ayrbox.winservice {
             }
         }
 
-        private static bool IsDebug() {
-            var args = Environment.GetCommandLineArgs();
-            return args.Select(s => s.ToLower()).Contains("debug");
-        }
-
-
+        
         //Factory method for creating logger
         private static ILogger CreateLogger() {
-            if (IsDebug()) {
+            if (BaseService.IsDebug()) {
                 return new ConsoleLogger();
             } else {
                 return new WindowsEventLogger("ayrbox.winservice");
