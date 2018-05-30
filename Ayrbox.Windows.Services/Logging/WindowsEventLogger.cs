@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 
-namespace ayrbox.winservice.Logging {
+namespace Ayrbox.Windows.Services.Logging {
     public class WindowsEventLogger : ILogger {
         private readonly string _logName;
         private readonly string _machineName;

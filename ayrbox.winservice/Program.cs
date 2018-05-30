@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
-using ayrbox.winservice.Logging;
-using ayrbox.winservice.Utils;
-using ayrbox.winservice.Core;
 using ayrbox.winservice.Data;
+using Ayrbox.Windows.Services;
 
 namespace ayrbox.winservice {
     static class Program {

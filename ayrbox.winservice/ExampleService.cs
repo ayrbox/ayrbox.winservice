@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
-using ayrbox.winservice.Logging;
 using System.Timers;
-using ayrbox.winservice.Core;
-using ayrbox.winservice.Data;
 using System.Data;
 using Dapper;
 using ayrbox.winservice.Models;
+using Ayrbox.Windows.Services;
+using Ayrbox.Windows.Services.Logging;
+using Ayrbox.Windows.Services.Data;
 
 namespace ayrbox.winservice {
     public class ExampleService : BaseService {
@@ -37,12 +37,12 @@ namespace ayrbox.winservice {
                 _running = true;
 
 
-                var people = _dataContext.Get<IEnumerable<Person>>(c => c.Query<Person>(@"SpGetPeople",
-                        commandType: CommandType.StoredProcedure));
+                //var people = _dataContext.Get<IEnumerable<Person>>(c => c.Query<Person>(@"SpGetPeople",
+                //        commandType: CommandType.StoredProcedure));
 
-                foreach (var p in people) {
-                    _logger.Debug(ServiceName, p.Name);
-                }
+                //foreach (var p in people) {
+                //    _logger.Debug(ServiceName, p.Name);
+                //}
 
                 _running = false;
                 _logger.Debug(ServiceName, "Example service ran successfully...");                

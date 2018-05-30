@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
-using ayrbox.winservice.Core;
+using Ayrbox.Windows.Services.Data;
 
 namespace ayrbox.winservice.Data {
     public class ServiceData : BaseDataContext, IDataContext {

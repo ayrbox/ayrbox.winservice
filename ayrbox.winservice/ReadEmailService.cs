@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ayrbox.winservice.Logging;
-using ayrbox.winservice.Core;
+using Ayrbox.Windows.Services;
+using Ayrbox.Windows.Services.Logging;
+using Ayrbox.Windows.Services.Data;
 
 namespace ayrbox.winservice {
     public class ReadEmailService : BaseService {
@@ -25,12 +26,7 @@ namespace ayrbox.winservice {
         protected override void Process() {
             _logger.Debug(ServiceName, "Processing email...");
 
-
-
             _logger.Debug(ServiceName, "Getting list of mailboxes...");
-
-
-
 
             string[] mailboxes = {"mailbox1", "mailbox2", "mailbox3"};
             foreach(var mailbox in mailboxes) {

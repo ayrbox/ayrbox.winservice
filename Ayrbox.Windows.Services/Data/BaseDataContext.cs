@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace ayrbox.winservice.Core {
+namespace Ayrbox.Windows.Services.Data {
     public abstract class BaseDataContext {
 
         private readonly string _connectionString = "";

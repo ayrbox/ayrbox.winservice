@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ayrbox.winservice.Logging
-{
-    public enum LogLevel
-    {
+namespace Ayrbox.Windows.Services.Logging {
+    public enum LogLevel {
         Debug = 10,
         Information = 20,
         Warning = 30,

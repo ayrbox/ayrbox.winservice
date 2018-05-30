@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Configuration;
-using ayrbox.winservice.Logging;
-using System.ServiceProcess;
-using System.Timers;
 using System.ComponentModel;
+using System.ServiceProcess;
+using Ayrbox.Windows.Services.Logging;
+using System.Timers;
+using Ayrbox.Windows.Services.Data;
 using System.Reflection;
 
-namespace ayrbox.winservice.Core {
+namespace Ayrbox.Windows.Services {
     public abstract class BaseService : ServiceBase, IComparable<BaseService> {
 
         private IContainer components = null;
@@ -43,7 +43,7 @@ namespace ayrbox.winservice.Core {
         }
 
 
-        protected BaseService(string serviceName, 
+        protected BaseService(string serviceName,
             ILogger logger,
             IDataContext dataContext) {
             components = new System.ComponentModel.Container();
@@ -58,7 +58,7 @@ namespace ayrbox.winservice.Core {
         }
 
 
-        protected override void OnStop() {            
+        protected override void OnStop() {
             _logger.Info(ServiceName, "Stopping...");
 
             if (_timer != null) {
@@ -92,11 +92,12 @@ namespace ayrbox.winservice.Core {
         public static IEnumerable<BaseService> GetAllServices(params object[] args) {
 
             List<BaseService> objects = new List<BaseService>();
-            foreach (Type type in
-                Assembly.GetAssembly(typeof(BaseService)).GetTypes()
-                    .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(BaseService)))) {
-                        objects.Add((BaseService)Activator.CreateInstance(type, args));
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+                foreach(Type baseServiceType in assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(BaseService)))) {
+                    objects.Add((BaseService)Activator.CreateInstance(baseServiceType, args));
+                }
             }
+
             objects.Sort();
             return objects;
         }
@@ -130,7 +131,7 @@ namespace ayrbox.winservice.Core {
         }
 
         public static void Run(IDataContext dataContext) {
-            var logger = CreateLogger();            
+            var logger = CreateLogger();
             Run(logger, dataContext);
         }
 

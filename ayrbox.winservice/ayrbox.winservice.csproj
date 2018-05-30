@@ -68,28 +68,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\BaseDataContext.cs" />
-    <Compile Include="Core\BaseService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Core\IDataContext.cs" />
     <Compile Include="Data\ServiceData.cs" />
     <Compile Include="ExampleService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Logging\ConsoleLogger.cs" />
-    <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Logging\Log.cs" />
-    <Compile Include="Logging\LoggerExtensions.cs" />
-    <Compile Include="Logging\LogLevel.cs" />
-    <Compile Include="Logging\WindowsEventLogger.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadEmailService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Utils\TypeFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -117,7 +105,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Ayrbox.Windows.Services\Ayrbox.Windows.Services.csproj">
+      <Project>{AD702419-26E0-4685-BE7E-D0667404E653}</Project>
+      <Name>Ayrbox.Windows.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

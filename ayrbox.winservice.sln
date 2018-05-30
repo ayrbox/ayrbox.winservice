@@ -3,16 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ayrbox.winservice", "ayrbox.winservice\ayrbox.winservice.csproj", "{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ayrbox.Windows.Services", "Ayrbox.Windows.Services\Ayrbox.Windows.Services.csproj", "{AD702419-26E0-4685-BE7E-D0667404E653}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Debug|x86.ActiveCfg = Debug|x86
 		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Debug|x86.Build.0 = Debug|x86
+		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Release|Any CPU.ActiveCfg = Release|x86
+		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Release|Mixed Platforms.Build.0 = Release|x86
 		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Release|x86.ActiveCfg = Release|x86
 		{1F0BD1FF-CFB2-4415-A667-B6D16C2D3A09}.Release|x86.Build.0 = Release|x86
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AD702419-26E0-4685-BE7E-D0667404E653}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
