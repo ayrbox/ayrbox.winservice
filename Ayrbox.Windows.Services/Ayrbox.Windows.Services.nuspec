@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>sawbeanraz</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>https://github.com/sawbeanraz/ayrbox.winservice</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Library to simplify creating windows service.</description>
+    <releaseNotes>Library for creating windows service in 4.0.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>windows service</tags>
+  </metadata>
+</package>
