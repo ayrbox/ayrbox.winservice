@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>sawbeanraz</authors>
     <owners>$author$</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <licenseUrl>https://github.com/sawbeanraz/ayrbox.winservice/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/sawbeanraz/ayrbox.winservice</projectUrl>
     <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
